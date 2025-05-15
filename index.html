@@ -94,6 +94,8 @@
     .grid-box.type-process     { border-top: 4px solid var(--process-green); }
     .grid-box.type-perspective { border-top: 4px solid var(--persp-grey); }
     .options {
+
+
   flex: 1;
   padding: 0.5rem;
   border-left: 1px solid #ddd;
@@ -106,9 +108,44 @@
 }
 
 .option-box {
-  /* exactly the same size rules as .grid-box: */
+  /* same sizing as your grid items */
   width: clamp(60px, 12vw, 100px);
   aspect-ratio: 2 / 1;
+
+  /* center within the 2-column options grid */
+  justify-self: center;
+
+  /* base border on all sides */
+  border: 2px solid var(--brand-green);
+  border-radius: 4px;
+
+  /* layout & typography */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-align: center;
+  padding: 0.25rem;
+  word-break: break-word;
+
+  /* interaction styles */
+  cursor: grab;
+  user-select: none;
+  transition: background 0.2s, opacity 0.2s;
+  margin: 0;  /* no auto-margins */
+}
+
+/* 4px coloured stripe on top, based on type */
+.option-box.type-performance { border-top: 4px solid var(--perf-red); }
+.option-box.type-people      { border-top: 4px solid var(--people-blue); }
+.option-box.type-process     { border-top: 4px solid var(--process-green); }
+.option-box.type-perspective { border-top: 4px solid var(--persp-grey); }
+
+/* hover & disabled states stay the same */
+.option-box:hover               { background: var(--brand-gold); }
+.option-box.disabled            { opacity: 0.4; cursor: default; }
+.option-box.disabled:hover      { background: var(--bg); }
 
   /* center it in its grid cell: */
   justify-self: center;
