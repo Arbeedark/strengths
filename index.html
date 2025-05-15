@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Strengths Portrait — Lock & Toggle</title>
+  <title>Strengths Portrait — Responsive & Uppercase Overdone</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -25,18 +26,18 @@
     }
     .toolbar {
       text-align: center;
-      padding: 10px 0;
+      padding: 1rem 0;
     }
     .toolbar button {
       background: var(--brand-green);
       color: #fff;
       border: none;
-      padding: 8px 16px;
-      font-size: .9rem;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
       font-weight: 600;
       border-radius: 4px;
       cursor: pointer;
-      transition: background .2s;
+      transition: background 0.2s;
     }
     .toolbar button:disabled {
       background: #ccc;
@@ -48,43 +49,44 @@
     }
     .container {
       display: flex;
-      height: calc(100vh - 60px);
+      height: calc(100vh - 4rem);
     }
     .grid {
-      flex: 2;
-      padding: 20px;
+      flex: 3;
+      padding: 1rem;
       background: var(--panel-bg);
       overflow: auto;
     }
     .grid h1 {
       text-align: center;
-      font-size: 1.4rem;
+      font-size: 1.5rem;
       color: var(--brand-green);
       margin-bottom: 1rem;
     }
     .grid-row {
       display: flex;
       justify-content: center;
-      gap: 10px;
-      margin-bottom: 10px;
+      gap: 1vw;
+      margin-bottom: 1vw;
     }
     .grid-box {
-      width: 100px;
-      height: 50px;
+      flex: 0 1 auto;
+      width: clamp(60px, 12vw, 100px);
+      aspect-ratio: 2 / 1;
       border: 2px solid var(--brand-green);
       background: var(--bg);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: .75rem;
+      font-size: 0.8rem;
       font-weight: 600;
       text-align: center;
-      padding: 4px;
+      padding: 0.25rem;
       word-break: break-word;
     }
     .grid-box[draggable] { cursor: grab; }
     .grid-box[draggable]:active {
-      opacity: .75;
+      opacity: 0.75;
       cursor: grabbing;
     }
     .grid-box.type-performance { border-top: 4px solid var(--perf-red); }
@@ -92,44 +94,45 @@
     .grid-box.type-process     { border-top: 4px solid var(--process-green); }
     .grid-box.type-perspective { border-top: 4px solid var(--persp-grey); }
     .options {
-      flex: 1;
-      padding: 20px;
-      border-left: 2px solid #ddd;
-      background: var(--bg);
-      overflow-y: auto;
-    }
-    .options h2 {
-      text-align: center;
-      font-size: 1.2rem;
-      color: var(--brand-green);
-      margin: 0 0 1rem;
-    }
-    .option-box {
-      width: 100px;
-      height: 50px;
-      margin: 6px auto;
-      border: 2px solid var(--brand-green);
-      border-radius: 4px;
-      background: var(--bg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: .75rem;
-      font-weight: 600;
-      text-align: center;
-      padding: 4px;
-      word-break: break-word;
-      cursor: grab;
-      user-select: none;
-      transition: background .2s, opacity .2s;
-    }
+  flex: 1;
+  padding: 0.5rem;
+  border-left: 1px solid #ddd;
+  background: var(--bg);
+  display: grid;
+  grid-template-columns: auto auto;  /* two columns */
+  row-gap: 0.3rem;                     /* vertical spacing */
+  column-gap: 0.3rem;                  /* horizontal spacing */
+  overflow-y: auto;
+}
+
+.option-box {
+  /* exactly the same size rules as .grid-box: */
+  width: clamp(60px, 12vw, 100px);
+  aspect-ratio: 2 / 1;
+
+  /* center it in its grid cell: */
+  justify-self: center;
+
+  /* keep all your existing styling: */
+  border: 2px solid var(--brand-green);
+  border-radius: 4px;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-align: center;
+  padding: 0.25rem;
+  word-break: break-word;
+  cursor: grab;
+  user-select: none;
+  transition: background 0.2s, opacity 0.2s;
+  margin: 0;       /* ditch the auto-centering margin */
+}
     .option-box:hover { background: var(--brand-gold); }
-    .option-box.disabled { opacity: .4; cursor: default; }
+    .option-box.disabled { opacity: 0.4; cursor: default; }
     .option-box.disabled:hover { background: var(--bg); }
-    .option-box.type-performance { border-top: 4px solid var(--perf-red); }
-    .option-box.type-people      { border-top: 4px solid var(--people-blue); }
-    .option-box.type-process     { border-top: 4px solid var(--process-green); }
-    .option-box.type-perspective { border-top: 4px solid var(--persp-grey); }
   </style>
 </head>
 <body>
@@ -139,7 +142,7 @@
   <div class="container">
     <div class="grid">
       <h1>Strengths Portrait</h1>
-      <!-- Grid: rows 1-2-3-5-6-5-3-2-1 -->
+      <!-- rows: 1-2-3-5-6-5-3-2-1 -->
       <div class="grid-row"><div class="grid-box" draggable="true"></div></div>
       <div class="grid-row"><div class="grid-box" draggable="true"></div><div class="grid-box" draggable="true"></div></div>
       <div class="grid-row"><div class="grid-box" draggable="true"></div><div class="grid-box" draggable="true"></div><div class="grid-box" draggable="true"></div></div>
@@ -151,106 +154,145 @@
       <div class="grid-row"><div class="grid-box" draggable="true"></div></div>
     </div>
     <div class="options">
-      <h2>Your Strengths</h2>
+      <!-- 28 Strength Chips -->
       <div class="option-box type-performance" draggable="true" data-label="PERSUASIVE" data-type="performance">PERSUASIVE</div>
       <div class="option-box type-perspective" draggable="true" data-label="FORCEFUL" data-type="perspective">FORCEFUL</div>
-      <div class="option-box type-people" draggable="true" data-label="LOYAL" data-type="people">LOYAL</div>
+      <div class="option-box type-people"      draggable="true" data-label="LOYAL" data-type="people">LOYAL</div>
       <div class="option-box type-perspective" draggable="true" data-label="OPEN-TO-CHANGE" data-type="perspective">OPEN-TO-CHANGE</div>
       <div class="option-box type-performance" draggable="true" data-label="SELF-CONFIDENT" data-type="performance">SELF-CONFIDENT</div>
-      <div class="option-box type-process" draggable="true" data-label="PERSEVERING" data-type="process">PERSEVERING</div>
+      <div class="option-box type-process"     draggable="true" data-label="PERSEVERING" data-type="process">PERSEVERING</div>
       <div class="option-box type-performance" draggable="true" data-label="RISK-TAKING" data-type="performance">RISK-TAKING</div>
       <div class="option-box type-performance" draggable="true" data-label="AMBITIOUS" data-type="performance">AMBITIOUS</div>
       <div class="option-box type-perspective" draggable="true" data-label="QUICK-TO-ACT" data-type="perspective">QUICK-TO-ACT</div>
-      <div class="option-box type-people" draggable="true" data-label="HELPFUL" data-type="people">HELPFUL</div>
-      <div class="option-box type-people" draggable="true" data-label="CARING" data-type="people">CARING</div>
+      <div class="option-box type-people"      draggable="true" data-label="HELPFUL" data-type="people">HELPFUL</div>
+      <div class="option-box type-people"      draggable="true" data-label="CARING" data-type="people">CARING</div>
       <div class="option-box type-perspective" draggable="true" data-label="PRINCIPLED" data-type="perspective">PRINCIPLED</div>
       <div class="option-box type-performance" draggable="true" data-label="COMPETITIVE" data-type="performance">COMPETITIVE</div>
       <div class="option-box type-perspective" draggable="true" data-label="ANALYTICAL" data-type="perspective">ANALYTICAL</div>
-      <div class="option-box type-process" draggable="true" data-label="TOLERANT" data-type="process">TOLERANT</div>
+      <div class="option-box type-process"     draggable="true" data-label="TOLERANT" data-type="process">TOLERANT</div>
       <div class="option-box type-perspective" draggable="true" data-label="FAIR" data-type="perspective">FAIR</div>
-      <div class="option-box type-people" draggable="true" data-label="INCLUSIVE" data-type="people">INCLUSIVE</div>
-      <div class="option-box type-people" draggable="true" data-label="SOCIABLE" data-type="people">SOCIABLE</div>
-      <div class="option-box type-people" draggable="true" data-label="DEVOTED" data-type="people">DEVOTED</div>
-      <div class="option-box type-people" draggable="true" data-label="SUPPORTIVE" data-type="people">SUPPORTIVE</div>
-      <div class="option-box type-process" draggable="true" data-label="ADAPTABLE" data-type="process">ADAPTABLE</div>
-      <div class="option-box type-process" draggable="true" data-label="FLEXIBLE" data-type="process">FLEXIBLE</div>
+      <div class="option-box type-people"      draggable="true" data-label="INCLUSIVE" data-type="people">INCLUSIVE</div>
+      <div class="option-box type-people"      draggable="true" data-label="SOCIABLE" data-type="people">SOCIABLE</div>
+      <div class="option-box type-people"      draggable="true" data-label="DEVOTED" data-type="people">DEVOTED</div>
+      <div class="option-box type-people"      draggable="true" data-label="SUPPORTIVE" data-type="people">SUPPORTIVE</div>
+      <div class="option-box type-process"     draggable="true" data-label="ADAPTABLE" data-type="process">ADAPTABLE</div>
+      <div class="option-box type-process"     draggable="true" data-label="FLEXIBLE" data-type="process">FLEXIBLE</div>
       <div class="option-box type-perspective" draggable="true" data-label="CAUTIOUS" data-type="perspective">CAUTIOUS</div>
       <div class="option-box type-perspective" draggable="true" data-label="MODEST" data-type="perspective">MODEST</div>
-      <div class="option-box type-process" draggable="true" data-label="METHODICAL" data-type="process">METHODICAL</div>
-      <div class="option-box type-people" draggable="true" data-label="TRUSTING" data-type="people">TRUSTING</div>
+      <div class="option-box type-process"     draggable="true" data-label="METHODICAL" data-type="process">METHODICAL</div>
+      <div class="option-box type-people"      draggable="true" data-label="TRUSTING" data-type="people">TRUSTING</div>
       <div class="option-box type-perspective" draggable="true" data-label="OPTION-ORIENTED" data-type="perspective">OPTION-ORIENTED</div>
       <div class="option-box type-perspective" draggable="true" data-label="RESERVED" data-type="perspective">RESERVED</div>
     </div>
   </div>
   <script>
     const overdoneMap = {
-      "PERSUASIVE":"Manipulative","FORCEFUL":"Domineering","LOYAL":"Clinging",
-      "OPEN-TO-CHANGE":"Inconsistent","SELF-CONFIDENT":"Arrogant","PERSEVERING":"Stubborn",
-      "RISK-TAKING":"Reckless","AMBITIOUS":"Ruthless","QUICK-TO-ACT":"Impulsive",
-      "HELPFUL":"Intrusive","CARING":"Smothering","PRINCIPLED":"Rigid",
-      "COMPETITIVE":"Combative","ANALYTICAL":"Overanalyzing","TOLERANT":"Permissive",
-      "FAIR":"Indecisive","INCLUSIVE":"Overaccommodating","SOCIABLE":"Superficial",
-      "DEVOTED":"Martyrlike","SUPPORTIVE":"Overprotective","ADAPTABLE":"Flighty",
-      "FLEXIBLE":"Opportunistic","CAUTIOUS":"Timid","MODEST":"Self-effacing",
-      "METHODICAL":"Pedantic","TRUSTING":"Gullible","OPTION-ORIENTATED":"Dithering",
-      "OPTION-ORIENTED":"Dithering","RESERVED":"Aloof"
+      "PERSUASIVE":"MANIPULATIVE","FORCEFUL":"DOMINEERING","LOYAL":"CLINGING",
+      "OPEN-TO-CHANGE":"INCONSISTENT","SELF-CONFIDENT":"ARROGANT","PERSEVERING":"STUBBORN",
+      "RISK-TAKING":"RECKLESS","AMBITIOUS":"RUTHLESS","QUICK-TO-ACT":"IMPULSIVE",
+      "HELPFUL":"INTRUSIVE","CARING":"SMOTHERING","PRINCIPLED":"RIGID",
+      "COMPETITIVE":"COMBATIVE","ANALYTICAL":"OVERANALYZING","TOLERANT":"PERMISSIVE",
+      "FAIR":"INDECISIVE","INCLUSIVE":"OVERACCOMMODATING","SOCIABLE":"SUPERFICIAL",
+      "DEVOTED":"MARTYRLIKE","SUPPORTIVE":"OVERPROTECTIVE","ADAPTABLE":"FLIGHTY",
+      "FLEXIBLE":"OPPORTUNISTIC","CAUTIOUS":"TIMID","MODEST":"SELF-EFFACING",
+      "METHODICAL":"PEDANTIC","TRUSTING":"GULLIBLE","OPTION-ORIENTED":"DITHERING",
+      "RESERVED":"ALOOF"
     };
-    let locked=false, showOverdone=false, originCell=null;
-    const btn=document.getElementById('action-btn');
-    function updateLockState(){
-      const boxes=document.querySelectorAll('.grid-box');
-      const filled=Array.from(boxes).filter(c=>c.textContent.trim()!=='').length;
-      btn.disabled = !locked && (filled!==boxes.length);
+    let locked = false, showOverdone = false, originCell = null;
+    const btn = document.getElementById('action-btn');
+    function updateLockState() {
+      const boxes = document.querySelectorAll('.grid-box');
+      const filled = Array.from(boxes).filter(c => c.textContent.trim() !== '').length;
+      btn.disabled = !locked && (filled !== boxes.length);
     }
-    function toggleView(){
-      document.querySelectorAll('.grid-box').forEach(cell=>{
-        const orig=cell.dataset.original;
-        if(!orig) return;
-        cell.textContent = showOverdone ? (overdoneMap[orig]||orig) : orig;
+    function toggleView() {
+      document.querySelectorAll('.grid-box').forEach(cell => {
+        const orig = cell.dataset.original;
+        if (!orig) return;
+        cell.textContent = showOverdone ? overdoneMap[orig] : orig;
       });
     }
-    btn.addEventListener('click',()=>{
-      if(!locked){ locked=true; btn.textContent='Show Overdone Strengths'; }
-      else { showOverdone=!showOverdone;
+    btn.addEventListener('click', () => {
+      if (!locked) {
+        locked = true;
+        btn.textContent = 'Show Overdone Strengths';
+        document.querySelectorAll('.grid-box').forEach(cell => {
+          if (cell.textContent.trim() !== '') cell.dataset.original = cell.textContent;
+        });
+      } else {
+        showOverdone = !showOverdone;
         btn.textContent = showOverdone ? 'Show Strengths' : 'Show Overdone Strengths';
-        toggleView(); }
+        toggleView();
+      }
     });
-    document.querySelectorAll('.option-box').forEach(chip=>{
-      chip.addEventListener('dragstart',e=>{
-        if(locked||chip.classList.contains('disabled')) e.preventDefault();
-        else { e.dataTransfer.setData('label',chip.dataset.label); e.dataTransfer.setData('type',chip.dataset.type); e.dataTransfer.setData('source','option'); }
+    document.querySelectorAll('.option-box').forEach(chip => {
+      chip.addEventListener('dragstart', e => {
+        if (locked || chip.classList.contains('disabled')) e.preventDefault();
+        else {
+          e.dataTransfer.setData('label', chip.dataset.label);
+          e.dataTransfer.setData('type', chip.dataset.type);
+          e.dataTransfer.setData('source', 'option');
+        }
       });
     });
-    document.querySelectorAll('.grid-box').forEach(cell=>{
-      cell.addEventListener('dragstart',e=>{
-        if(locked||cell.textContent.trim()==='') e.preventDefault();
-        else { originCell=cell; e.dataTransfer.setData('label',cell.textContent); e.dataTransfer.setData('type',cell.dataset.type); e.dataTransfer.setData('source','grid'); }
+    document.querySelectorAll('.grid-box').forEach(cell => {
+      cell.addEventListener('dragstart', e => {
+        if (locked || cell.textContent.trim() === '') return e.preventDefault();
+        originCell = cell;
+        e.dataTransfer.setData('label', cell.textContent);
+        e.dataTransfer.setData('type', cell.dataset.type);
+        e.dataTransfer.setData('source', 'grid');
       });
-      cell.addEventListener('dragover',e=>{ if(!locked) e.preventDefault(); });
-      cell.addEventListener('drop',e=>{
-        if(locked) return; e.preventDefault();
-        const lbl=e.dataTransfer.getData('label');
-        const type=e.dataTransfer.getData('type');
-        const source=e.dataTransfer.getData('source');
-        const old=cell.textContent.trim();
-        if(old){ const opt=document.querySelector(`.option-box[data-label=\"${old}\"]`);
-          opt.classList.remove('disabled'); opt.setAttribute('draggable','true'); }
-        if(source==='grid'&&originCell&&originCell!==cell){ originCell.textContent=''; delete originCell.dataset.original; delete originCell.dataset.type; originCell.classList.remove('type-performance','type-people','type-process','type-perspective'); }
-        if(source==='option'){ const opt=document.querySelector(`.option-box[data-label=\"${lbl}\"]`);
-          opt.classList.add('disabled'); opt.removeAttribute('draggable'); }
-        cell.textContent=lbl; cell.dataset.type=type; cell.classList.add(`type-${type}`); cell.setAttribute('draggable','true'); cell.dataset.original=lbl;
+      cell.addEventListener('dragover', e => { if (!locked) e.preventDefault(); });
+      cell.addEventListener('drop', e => {
+        if (locked) return;
+        e.preventDefault();
+        const lbl = e.dataTransfer.getData('label');
+        const type = e.dataTransfer.getData('type');
+        const source = e.dataTransfer.getData('source');
+        const old = cell.textContent.trim();
+        if (old) {
+          const opt = document.querySelector(`.option-box[data-label="${old}"]`);
+          opt.classList.remove('disabled'); opt.setAttribute('draggable','true');
+        }
+        if (source === 'grid' && originCell && originCell !== cell) {
+          originCell.textContent = '';
+          delete originCell.dataset.original;
+          delete originCell.dataset.type;
+          originCell.classList.remove('type-performance','type-people','type-process','type-perspective');
+        }
+        if (source === 'option') {
+          const opt = document.querySelector(`.option-box[data-label="${lbl}"]`);
+          opt.classList.add('disabled'); opt.removeAttribute('draggable');
+        }
+        cell.textContent = lbl;
+        cell.dataset.type = type;
+        cell.classList.add(`type-${type}`);
+        cell.setAttribute('draggable','true');
         updateLockState();
       });
     });
-    document.querySelector('.options').addEventListener('dragover',e=>{ if(!locked) e.preventDefault(); });
-    document.querySelector('.options').addEventListener('drop',e=>{
-      if(locked) return; e.preventDefault();
-      const lbl=e.dataTransfer.getData('label'); const source=e.dataTransfer.getData('source');
-      if(source==='grid'){ const opt=document.querySelector(`.option-box[data-label=\"${lbl}\"]`);
-        if(opt.classList.contains('disabled')){ opt.classList.remove('disabled'); opt.setAttribute('draggable','true'); }
-        document.querySelectorAll('.grid-box').forEach(cell=>{
-          if(cell.textContent.trim()===lbl){ cell.textContent=''; delete cell.dataset.original; delete cell.dataset.type; cell.classList.remove('type-performance','type-people','type-process','type-perspective'); }
-        }); updateLockState(); }
+    document.querySelector('.options').addEventListener('dragover', e => { if (!locked) e.preventDefault(); });
+    document.querySelector('.options').addEventListener('drop', e => {
+      if (locked) return;
+      e.preventDefault();
+      const lbl = e.dataTransfer.getData('label');
+      const source = e.dataTransfer.getData('source');
+      if (source === 'grid') {
+        const opt = document.querySelector(`.option-box[data-label="${lbl}"]`);
+        if (opt.classList.contains('disabled')) {
+          opt.classList.remove('disabled'); opt.setAttribute('draggable','true');
+        }
+        document.querySelectorAll('.grid-box').forEach(cell => {
+          if (cell.textContent.trim() === lbl) {
+            cell.textContent = '';
+            delete cell.dataset.original;
+            delete cell.dataset.type;
+            cell.classList.remove('type-performance','type-people','type-process','type-perspective');
+          }
+        });
+        updateLockState();
+      }
     });
     updateLockState();
   </script>
